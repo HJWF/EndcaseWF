@@ -13,24 +13,28 @@ using Newtonsoft.Json;
 
 namespace BackEnd.Controllers
 {
+    [EnableCors(origins: "*", headers: "*", methods: "*")]
     public class CursusController : ApiController
     {
         private ApplicationDbContext db = new ApplicationDbContext();
 
         // GET: api/Cursus
-        [EnableCors(origins: "*", headers: "*", methods: "*")]
-        public HttpResponseMessage Get()
+        //public HttpResponseMessage Get()
+        //{
+        //    var json = JsonConvert.SerializeObject(db.Cursussen);
+        //    var resp = new HttpResponseMessage()
+        //    {
+        //        Content = new StringContent(json.ToString())
+        //    };
+
+        //    resp.Headers.Add("Access-Control-Allow-Origin", "http://localhost:4200/");
+        //    return resp;
+        //}
+
+        // GET: api/CursusInstanties
+        public IQueryable<Cursus> GetCursussen()
         {
-            //return db.Cursussen;
-            //var data = db.Cursussen.Select(x => x).ToList();
-            //return Request.CreateResponse(HttpStatusCode.OK, data);
-            var json = JsonConvert.SerializeObject(db.Cursussen);
-            var resp = new HttpResponseMessage()
-            {
-                Content = new StringContent(json.ToString())
-            };
-            resp.Headers.Add("X-Custom-Header", "hello");
-            return resp;
+            return db.Cursussen;
         }
 
         // GET: api/Cursus/5
