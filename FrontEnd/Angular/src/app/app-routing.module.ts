@@ -5,7 +5,7 @@ import { CursussenComponent } from './cursussen/cursussen.component';
 import { CursusAddEditComponent } from './cursus-add-edit/cursus-add-edit.component';
 
 const routes: Routes = [
-  { path: '', component: CursusComponent, pathMatch: 'full' },
+  { path: '', component: CursussenComponent, pathMatch: 'full' },
   { path: 'cursus/:id', component: CursusComponent },
   { path: 'add', component: CursusAddEditComponent },
   { path: 'cursus/edit/:id', component: CursusAddEditComponent },
