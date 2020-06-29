@@ -1,9 +1,7 @@
 ﻿namespace BackEnd.Migrations
 {
-    using System;
-    using System.Data.Entity;
     using System.Data.Entity.Migrations;
-    using System.Linq;
+    using BackEnd.Models;
 
     internal sealed class Configuration : DbMigrationsConfiguration<BackEnd.Data.ApplicationDbContext>
     {
@@ -14,10 +12,11 @@
 
         protected override void Seed(BackEnd.Data.ApplicationDbContext context)
         {
-            //  This method will be called after migrating to the latest version.
-
-            //  You can use the DbSet<T>.AddOrUpdate() helper extension method
-            //  to avoid creating duplicate seed data.
+            context.Cursussen.AddOrUpdate(x => x.Id,
+                new Cursus { Id = 1, Duur = "5 dagen", Code = "ABC", Titel = "cursus 1" },
+                new Cursus { Id = 2, Duur = "3 dagen", Code = "KLM", Titel = "cursus 2" },
+                new Cursus { Id = 3, Duur = "2 dagen", Code = "XYZ", Titel = "cursus 3" }
+                );
         }
     }
 }

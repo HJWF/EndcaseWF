@@ -237,7 +237,6 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\CursusController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
-    <Compile Include="Controllers\ValuesController.cs" />
     <Compile Include="Data\ApplicationDbContext.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -245,6 +244,10 @@
     <Compile Include="Migrations\202006290912491_Initial.cs" />
     <Compile Include="Migrations\202006290912491_Initial.designer.cs">
       <DependentUpon>202006290912491_Initial.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202006291136256_InitialSeeding.cs" />
+    <Compile Include="Migrations\202006291136256_InitialSeeding.designer.cs">
+      <DependentUpon>202006291136256_InitialSeeding.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Cursus.cs" />
@@ -271,6 +274,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\202006290912491_Initial.resx">
       <DependentUpon>202006290912491_Initial.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202006291136256_InitialSeeding.resx">
+      <DependentUpon>202006291136256_InitialSeeding.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web.Http;
+﻿using System.Web.Http;
 using System.Web.Http.Cors;
 using Newtonsoft.Json.Serialization;
 
@@ -21,7 +18,6 @@ namespace BackEnd
                 routeTemplate: "api/{controller}/{id}",
                 defaults: new { id = RouteParameter.Optional }
             );
-
 
             // Enable CORS for the Angular App
             var cors = new EnableCorsAttribute("http://localhost:4200", "*", "*");

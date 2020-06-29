@@ -1,15 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data;
+﻿using System.Collections.Generic;
 using System.Data.Entity;
 using System.Data.Entity.Infrastructure;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
+using System.Web.Http.Cors;
 using System.Web.Http.Description;
 using BackEnd.Data;
 using BackEnd.Models;
+using Newtonsoft.Json;
 
 namespace BackEnd.Controllers
 {
@@ -18,9 +18,19 @@ namespace BackEnd.Controllers
         private ApplicationDbContext db = new ApplicationDbContext();
 
         // GET: api/Cursus
-        public IQueryable<Cursus> GetCursussen()
+        [EnableCors(origins: "*", headers: "*", methods: "*")]
+        public HttpResponseMessage Get()
         {
-            return db.Cursussen;
+            //return db.Cursussen;
+            //var data = db.Cursussen.Select(x => x).ToList();
+            //return Request.CreateResponse(HttpStatusCode.OK, data);
+            var json = JsonConvert.SerializeObject(db.Cursussen);
+            var resp = new HttpResponseMessage()
+            {
+                Content = new StringContent(json.ToString())
+            };
+            resp.Headers.Add("X-Custom-Header", "hello");
+            return resp;
         }
 
         // GET: api/Cursus/5
