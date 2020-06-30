@@ -1,14 +1,19 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Data.Entity;
 using System.Data.Entity.Infrastructure;
+using System.Diagnostics;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Web;
 using System.Web.Http;
 using System.Web.Http.Cors;
 using System.Web.Http.Description;
 using BackEnd.Data;
 using BackEnd.Models;
+using BackEnd.Services;
 using Newtonsoft.Json;
 
 namespace BackEnd.Controllers
@@ -18,23 +23,14 @@ namespace BackEnd.Controllers
     {
         private ApplicationDbContext db = new ApplicationDbContext();
 
-        // GET: api/Cursus
-        //public HttpResponseMessage Get()
-        //{
-        //    var json = JsonConvert.SerializeObject(db.Cursussen);
-        //    var resp = new HttpResponseMessage()
-        //    {
-        //        Content = new StringContent(json.ToString())
-        //    };
-
-        //    resp.Headers.Add("Access-Control-Allow-Origin", "http://localhost:4200/");
-        //    return resp;
-        //}
-
         // GET: api/CursusInstanties
-        public IQueryable<Cursus> GetCursussen()
+        [Route("api/cursus")]
+        public IQueryable<CursusInstantie> GetCursussen()
         {
-            return db.Cursussen;
+            Debug.Write("Get request");
+            var cursussen = db.CursusInstanties.Include(c => c.Cursus);
+
+            return cursussen;
         }
 
         // GET: api/Cursus/5
@@ -86,18 +82,38 @@ namespace BackEnd.Controllers
         }
 
         // POST: api/Cursus
-        [ResponseType(typeof(Cursus))]
-        public IHttpActionResult PostCursus(Cursus cursus)
+        //[ResponseType(typeof(Cursus))]
+        [Route("api/cursus")]
+        [HttpPost]
+        public HttpResponseMessage PostCursus()
         {
-            if (!ModelState.IsValid)
+
+            var httpRequest = HttpContext.Current.Request;
+            if (httpRequest.Files.Count < 1)
             {
-                return BadRequest(ModelState);
+                return Request.CreateResponse(HttpStatusCode.BadRequest);
             }
 
-            db.Cursussen.Add(cursus);
-            db.SaveChanges();
+            try
+            {
+                var file = httpRequest.Files[0];
+                var fileContent = new StreamReader(file.InputStream).ReadToEnd();
 
-            return CreatedAtRoute("DefaultApi", new { id = cursus.Id }, cursus);
+                var cursusInstanties = FileProcessService.MapToCursusInstances(fileContent);
+
+                foreach (var cursusInstantie in cursusInstanties)
+                {
+                    db.CursusInstanties.Add(cursusInstantie);
+                }
+
+                db.SaveChanges();
+
+                return Request.CreateResponse(HttpStatusCode.OK, cursusInstanties.Count, "application/json");
+            }
+            catch (Exception)
+            {
+                return Request.CreateResponse(HttpStatusCode.BadRequest);
+            }
         }
 
         // DELETE: api/Cursus/5

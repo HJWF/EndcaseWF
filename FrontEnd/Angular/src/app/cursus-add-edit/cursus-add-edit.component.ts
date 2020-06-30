@@ -1,15 +1,33 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { CursusService } from '../services/cursus.service';
+import { JsonMapper } from '../services/cursus.mapper';
 
 @Component({
   selector: 'app-cursus-add-edit',
   templateUrl: './cursus-add-edit.component.html',
   styleUrls: ['./cursus-add-edit.component.css']
 })
-export class CursusAddEditComponent implements OnInit {
+export class CursusAddEditComponent {
 
-  constructor() { }
+  fileContent: string = '';
+  fileToUpload: File;
 
-  ngOnInit(): void {
+  constructor(private cursusService: CursusService)
+  { }
+
+  public onChange(files: FileList)
+  {
+    this.fileToUpload = files[0];
   }
 
+  Save()
+  {
+    if(this.fileToUpload == null)
+    {
+      return;
+    }
+
+    this.cursusService.addCursus(this.fileToUpload)
+  }
 }

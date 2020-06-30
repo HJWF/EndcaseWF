@@ -250,10 +250,15 @@
     <Compile Include="Migrations\202006291136256_InitialSeeding.designer.cs">
       <DependentUpon>202006291136256_InitialSeeding.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202006301300562_AddCursusInstantie.cs" />
+    <Compile Include="Migrations\202006301300562_AddCursusInstantie.designer.cs">
+      <DependentUpon>202006301300562_AddCursusInstantie.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Cursus.cs" />
     <Compile Include="Models\CursusInstantie.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Services\FileProcessService.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="favicon.ico" />
@@ -278,6 +283,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202006291136256_InitialSeeding.resx">
       <DependentUpon>202006291136256_InitialSeeding.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202006301300562_AddCursusInstantie.resx">
+      <DependentUpon>202006301300562_AddCursusInstantie.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

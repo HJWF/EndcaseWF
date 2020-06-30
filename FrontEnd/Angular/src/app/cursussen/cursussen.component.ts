@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Cursus } from '../models/cursus';
 import { CursusService } from '../services/cursus.service';
+import { CursusInstantie } from '../models/CursusInstantie';
 
 @Component({
   selector: 'app-cursussen',
@@ -9,7 +10,7 @@ import { CursusService } from '../services/cursus.service';
   styleUrls: ['./cursussen.component.css']
 })
 export class CursussenComponent implements OnInit {
-  cursussen: Observable<Cursus[]>
+  cursussen: Observable<CursusInstantie[]>
 
   constructor(private cursusService: CursusService) { }
 
@@ -18,7 +19,7 @@ export class CursussenComponent implements OnInit {
   }
   
   loadCursussen(){
-    this.cursussen = this.cursusService.getCursussen();
+    this.cursussen = this.cursusService.getCursussen().pipe();
   }
 
 }

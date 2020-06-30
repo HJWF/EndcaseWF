@@ -9,19 +9,19 @@
   <thead>
     <tr>
       <th>#</th>
-      <th>Title</th>
-      <th>Creator</th>
-      <th>Date</th>
+      <th>Duur</th>
+      <th>Titel</th>
+      <th>Code</th>
       <th></th>
       <th></th>
     </tr>
   </thead>
   <tbody>
     <tr *ngFor="let cursus of (cursussen | async)">
-      <td>{{ cursus.postId }}</td>
-      <td>{{ cursus.duur }}</td>
-      <td>{{ cursus.titel }}</td>
-      <td>{{ cursus.code }}</td>
+      <td>{{ cursus.startDatum }}</td>
+      <td>{{ cursus.cursus.duur }}</td>
+      <td>{{ cursus.cursus.titel }}</td>
+      <td>{{ cursus.cursus.code }}</td>
       <td><a [routerLink]="['/cursus/edit/', cursus.postId]" class="btn btn-primary btn-sm float-right">Edit</a></td>
       <td><a [routerLink]="" (click)="delete(cursus.postId)" class="btn btn-danger btn-sm float-right">Delete</a></td>
     </tr>

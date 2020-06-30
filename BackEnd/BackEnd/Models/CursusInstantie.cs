@@ -9,5 +9,8 @@ namespace BackEnd.Models
 
         [Required]
         public string StartDatum { get; set; }
+
+        [Required]
+        public Cursus Cursus { get; set; }
     }
 }
