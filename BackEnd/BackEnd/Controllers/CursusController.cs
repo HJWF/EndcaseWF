@@ -144,9 +144,11 @@ namespace BackEnd.Controllers
 
                 return Request.CreateResponse(HttpStatusCode.OK, requestBody, "application/json");
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                return Request.CreateResponse(HttpStatusCode.BadRequest);
+                var requestBody = $"Bestand is niet in correct formaat op regel {ex.Message}." +
+                                  $"Er zijn geen cursus of cursusinstanties toegevoegd.";
+                return Request.CreateResponse(HttpStatusCode.BadRequest, requestBody, "application/json");
             }
         }
 

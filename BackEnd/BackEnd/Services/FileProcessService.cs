@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using BackEnd.Models;
 
@@ -16,6 +17,36 @@ namespace BackEnd.Services
             };
 
             var lines = fileContent.Split(new[] { Environment.NewLine }, StringSplitOptions.None).ToArray();
+
+            var lastItemEmpty = true;
+            while(lastItemEmpty)
+            {
+                if (lines.Last().Equals(string.Empty))
+                {
+                    Debug.WriteLine(lines.Last());
+                    lines = lines.Take(lines.Length - 1).ToArray();
+                }
+                else
+                {
+                    lastItemEmpty = false;
+                }
+
+            }
+
+            for (int i = 0; i < lines.Length; i += 5)
+            {
+                if (lines[i].Equals(string.Empty) )
+                {
+                    break;
+                }
+
+                if (!lines[i].StartsWith("Titel", StringComparison.OrdinalIgnoreCase) || !lines[i+1].StartsWith("Cursuscode", StringComparison.OrdinalIgnoreCase) 
+                    || !lines[i+2].StartsWith("Duur", StringComparison.OrdinalIgnoreCase) || !lines[i+3].StartsWith("Startdatum", StringComparison.OrdinalIgnoreCase))
+                {
+                    // stuur juiste regel terug
+                    throw new ArgumentException(i.ToString());
+                }
+            }
 
             var splitLines = new List<string>();
 
@@ -37,7 +68,7 @@ namespace BackEnd.Services
             if (emptyLineIndexes.Count == 0 || !splitLines[4].Equals(string.Empty))
             {
                 // Invalid input - op index 4 moet een lege regel zijn
-                return cursusDto;
+                throw new ArgumentException();
             }
             else
             {
@@ -65,7 +96,7 @@ namespace BackEnd.Services
                         }
                         else
                         {
-                            return cursusDto;
+                            throw new ArgumentException();
                         }
                         cursusInstantie.Cursus = cursus;
                         cursusInstanties.Add(cursusInstantie);
