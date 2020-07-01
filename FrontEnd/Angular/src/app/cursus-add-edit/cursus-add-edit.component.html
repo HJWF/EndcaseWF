@@ -1,5 +1,24 @@
 <h1>Nieuwe cursus toevoegen</h1>
 <br /><br />
-<input type="file" class="filestyle" data-classButton="btn btn-secondary" (change)="onChange($event.target.files)">
+<div>
+    <label for="fileExplorer">Kies een bestand met cursussen om te uploaden</label>
+    <br>
+    <input id="fileExplorer" type="file" class="filestyle" data-classButton="btn btn-secondary" (change)="onChange($event.target.files)">
+</div>
 <br /><br />
-<a class="btn btn-secondary float-left mb-3" (click)='Save()'>Uploaden</a>
+<button type="button" class="btn btn-primary" (click)='Save()'>Uploaden</button>
+<br /><br />
+<button type="button" class="btn btn-primary" routerLink="/"> Terug naar overzicht </button>
+<br /><br />
+<div class="added">
+    <p>{{addedCursusses}}</p>
+</div>
+<div class="added">
+    <p>{{addedCursusInstanties}}</p>
+</div>
+<div class="double">
+    <p>{{doubleCursusses}}</p>
+</div>
+<div class="double">
+    <p>{{doubleCursusInstanties}}</p>
+</div>

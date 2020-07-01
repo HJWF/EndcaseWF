@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System;
+using System.ComponentModel.DataAnnotations;
 
 namespace BackEnd.Models
 {
@@ -8,7 +9,7 @@ namespace BackEnd.Models
         public int Id { get; set; }
 
         [Required]
-        public string StartDatum { get; set; }
+        public DateTime StartDatum { get; set; }
 
         [Required]
         public Cursus Cursus { get; set; }

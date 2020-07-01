@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpResponse } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
 import { map, catchError, count } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
@@ -10,10 +10,9 @@ import { analyzeAndValidateNgModules } from '@angular/compiler';
   providedIn: 'root'
 })
 export class CursusService {
-
   myAppUrl: string;
   myApiUrl: string;
-  cursusIdToAdd: number = 999;
+
   httpOption = {
     headers: new HttpHeaders(
       {
@@ -45,13 +44,6 @@ export class CursusService {
 
     data.append('filekey', fileToUpload, fileToUpload.name);
 
-    return this.http.post(this.myAppUrl + this.myApiUrl, data , {observe: 'response'}).subscribe(
-      (data) => {
-          alert("Totaal toegevoegd: " + data.body)
-      },
-      (error) => {
-         console.log(error);
-         // get the status as error.status
-      });
+    return this.http.post(this.myAppUrl + this.myApiUrl, data, {observe: 'response'})
   }
 }

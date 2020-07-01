@@ -9,7 +9,6 @@ import { CursusComponent } from './cursus/cursus.component';
 import { CursussenComponent } from './cursussen/cursussen.component';
 import { CursusAddEditComponent } from './cursus-add-edit/cursus-add-edit.component';
 import { CursusService } from './services/cursus.service';
-import { JsonMapper } from './services/cursus.mapper';
 
 @NgModule({
   declarations: [
@@ -25,8 +24,7 @@ import { JsonMapper } from './services/cursus.mapper';
     ReactiveFormsModule
   ],
   providers: [
-    CursusService,
-    JsonMapper
+    CursusService
   ],
   bootstrap: [AppComponent]
 })

@@ -1,8 +1,7 @@
 ﻿namespace BackEnd.Migrations
 {
-    using System;
     using System.Data.Entity.Migrations;
-    
+
     public partial class AddCursusInstantie : DbMigration
     {
         public override void Up()
