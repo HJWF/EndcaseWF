@@ -79,15 +79,10 @@ export class CursusComponent implements OnInit {
       this.currentYear = this.year;
       this.currentWeekNumber = this.weekNumber;
       this.yearWeek = Number.parseInt( '' + this.currentYear + this.currentWeekNumber);
-      console.log(`w: ${this.currentWeekNumber} y: ${this.currentYear} yw: ${this.yearWeek}`)
 
       this.loadCursussenForWeek(this.currentYear, this.currentWeekNumber);
 
       this.router.navigate(['/cursus', this.yearWeek]);
-
-
-
-      this.yearWeek = Number.parseInt( '' + this.year + this.weekNumber);
     }
   }
 
@@ -121,5 +116,29 @@ export class CursusComponent implements OnInit {
   {
     let date: Date = new Date();
     this.currentWeekNumber = this.weekNumberService.getWeek(date)
+  }
+
+  public nextWeek()
+  {
+    this.subscription.unsubscribe();
+
+    this.currentWeekNumber ++;
+    this.yearWeek = Number.parseInt( '' + this.currentYear + this.currentWeekNumber);
+
+    this.loadCursussenForWeek(this.currentYear, this.currentWeekNumber);
+
+    this.router.navigate(['/cursus', this.yearWeek]);
+  }
+
+  public previousWeek()
+  {
+    this.subscription.unsubscribe();
+
+    this.currentWeekNumber --;
+    this.yearWeek = Number.parseInt( '' + this.currentYear + this.currentWeekNumber);
+
+    this.loadCursussenForWeek(this.currentYear, this.currentWeekNumber);
+
+    this.router.navigate(['/cursus', this.yearWeek]);
   }
 }

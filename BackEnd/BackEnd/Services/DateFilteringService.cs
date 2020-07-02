@@ -19,15 +19,8 @@ namespace BackEnd.Services
             var lastDay = firstAndLastDateOfWeek[1];
 
             var cursussesForWeek = new List<CursusInstantie>();
-            foreach (var item in cursuses.ToList())
-            {
-                if (item.StartDatum >= firstDay && item.StartDatum <= lastDay)
-                {
-                    cursussesForWeek.Add(item);
-                }
-            }
 
-            //cursussesForWeek.AddRange(cursuses.ToList().Where(x => x.StartDatum >= firstDay && x.StartDatum <= lastDay));
+            cursussesForWeek.AddRange(cursuses.ToList().Where(x => x.StartDatum >= firstDay && x.StartDatum <= lastDay));
 
             return cursussesForWeek;
         }

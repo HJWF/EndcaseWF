@@ -14,14 +14,22 @@
     <label for="yearInput">Jaar</label>
     <input class="form-control  mb-3" type="number" id="yearInput" placeholder="Vul jaartal in" (change)="onChangeYear($event.target.value)">
   </div>
-  <div>
-    <a id="updateWeekNumberBtn" class="btn btn-primary float-left mb-3" (click)='updateWeekNumber()' >Zoek voor week en jaar</a>
+  <div class="d-flex justify-content-between">
+    <div>
+      <a id="previousWeekBtn" class="btn btn-primary mb-3" (click)='previousWeek()'>Vorige week</a>
+    </div>
+    <div>
+      <a id="updateWeekNumberBtn" class="btn btn-primary  mb-3" (click)='updateWeekNumber()' >Zoek week en jaar</a>
+    </div>
+    <div>
+      <a id="nextWeekBtn" class="btn btn-primary mb-3" (click)='nextWeek()'>Volgende week</a>
+    </div>
   </div>
   <div class="error">
     <p>{{errorMessage}}</p>
+  </div>
 </div>
-</div>
-<!-- [routerLink]="['/cursus',  yearWeek] "-->
+
 <table class="table table-sm table-hover  mb-3" *ngIf="(cursussen)?.length>0">
   <thead>
     <tr>
