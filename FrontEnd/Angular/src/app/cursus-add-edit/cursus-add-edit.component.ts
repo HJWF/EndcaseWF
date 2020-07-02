@@ -24,6 +24,12 @@ export class CursusAddEditComponent {
   public onChange(files: FileList)
   {
     this.fileToUpload = files[0];
+    this.addedCursusses = "";
+    this.addedCursusInstanties = "";
+    this.doubleCursusses = "";
+    this.doubleCursusInstanties = "";
+    this.errorReason = "";
+    this.errorMessage = "";
   }
 
   Save()

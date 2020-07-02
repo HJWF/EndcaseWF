@@ -265,6 +265,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\CursusValidator.cs" />
     <Compile Include="Services\CursusInstantieValidator.cs" />
+    <Compile Include="Services\DateFilteringService.cs" />
     <Compile Include="Services\FileProcessService.cs" />
   </ItemGroup>
   <ItemGroup>

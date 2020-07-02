@@ -2,6 +2,6 @@ import { Cursus } from './cursus';
 
 export class CursusInstantie {
     id: number;
-    startDatum: string;
-    cursus: Date;
+    startDatum: Date;
+    cursus: Cursus;
   }

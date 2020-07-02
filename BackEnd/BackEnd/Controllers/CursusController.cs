@@ -20,45 +20,40 @@ namespace BackEnd.Controllers
     [EnableCors(origins: "*", headers: "*", methods: "*")]
     public class CursusController : ApiController
     {
-        private ICursusRepository repository;
+        private readonly ICursusRepository _repository;
         private CursusInstantieValidator _cursusInstantieValidator = new CursusInstantieValidator();
         private CursusValidator _cursusValidator = new CursusValidator();
 
         public CursusController()
         {
-            repository = new CursusRepository(new ApplicationDbContext());
+            _repository = new CursusRepository(new ApplicationDbContext());
         }
 
         public CursusController(ICursusRepository repository)
         {
-            this.repository = repository;
+            _repository = repository;
         }
 
-        // GET: api/CursusInstanties
+        // GET: api/Cursussen
         [Route("api/cursus")]
-        public IEnumerable<CursusInstantie> GetCursussenInstanties()
+        [HttpGet]
+        public IEnumerable<CursusInstantie> GetCursussen()
         {
-            Debug.Write("Get request");
-
-            return repository.GetCursusInstanties();
+            return _repository.GetCursusInstanties();
         }
 
         // GET: api/Cursus/5
-        public IHttpActionResult GetCursusInstantie(int id)
+        public IEnumerable<CursusInstantie> GetCursusById(int id)
         {
-            // NOT CORRECTLY IMPLEMENTED YET
-            CursusInstantie cursusInstantie = repository.GetCursusInstantieById(id);
-            if (cursusInstantie == null)
-            {
-                return NotFound();
-            }
+            var cursussen = _repository.GetCursusInstanties();
+            var cursussenForSpecificWeek = DateFilteringService.FilterOnWeek(cursussen, id);
 
-            return Ok(cursusInstantie);
+            return cursussenForSpecificWeek;
         }
 
         // PUT: api/Cursus/5
         [ResponseType(typeof(void))]
-        public IHttpActionResult PutCursusInstantie(int id, CursusInstantie cursusInstantie)
+        public IHttpActionResult PutCursus(int id, CursusInstantie cursusInstantie)
         {
             // NOT CORRECTLY IMPLEMENTED YET
             if (!ModelState.IsValid)
@@ -71,11 +66,11 @@ namespace BackEnd.Controllers
                 return BadRequest();
             }
 
-            repository.UpdateCursusInstantie(cursusInstantie);
+            _repository.UpdateCursusInstantie(cursusInstantie);
 
             try
             {
-                repository.Save();
+                _repository.Save();
             }
             catch (DbUpdateConcurrencyException)
             {
@@ -96,7 +91,7 @@ namespace BackEnd.Controllers
         //[ResponseType(typeof(Cursus))]
         [Route("api/cursus")]
         [HttpPost]
-        public HttpResponseMessage PostCursusInstantie()
+        public HttpResponseMessage PostCursus()
         {
             var httpRequest = HttpContext.Current.Request;
             if (httpRequest.Files.Count < 1)
@@ -121,8 +116,8 @@ namespace BackEnd.Controllers
                 {
                     if (_cursusValidator.DoesCursusNotExist(cursus) && _cursusValidator.DoesCursusHaveFilledAttributes(cursus))
                     {
-                        repository.AddCursus(cursus);
-                        repository.Save();
+                        _repository.AddCursus(cursus);
+                        _repository.Save();
                         succesFullAddedCursusCounter++;
                     }
                 }
@@ -131,8 +126,8 @@ namespace BackEnd.Controllers
                 {
                     if (_cursusInstantieValidator.DoesNotCursusInstantieExist(cursusInstantie))
                     {
-                        repository.AddCursusInstantie(cursusInstantie);
-                        repository.Save();
+                        _repository.AddCursusInstantie(cursusInstantie);
+                        _repository.Save();
                         succesFullAddedCursusInstantiesCounter++;
                     }
                 }
@@ -160,17 +155,17 @@ namespace BackEnd.Controllers
 
         // DELETE: api/Cursus/5
         [ResponseType(typeof(Cursus))]
-        public IHttpActionResult DeleteCursusInstantie(int id)
+        public IHttpActionResult DeleteCursus(int id)
         {
             // NOT CORRECTLY IMPLEMENTED YET
-            CursusInstantie cursusInstantie = repository.GetCursusInstantieById(id);
+            CursusInstantie cursusInstantie = _repository.GetCursusInstantieById(id);
             if (cursusInstantie == null)
             {
                 return NotFound();
             }
 
-            repository.DeleteCursusInstantie(id);
-            repository.Save();
+            _repository.DeleteCursusInstantie(id);
+            _repository.Save();
 
             return Ok(cursusInstantie);
         }
@@ -179,14 +174,14 @@ namespace BackEnd.Controllers
         {
             if (disposing)
             {
-                repository.Dispose();
+                _repository.Dispose();
             }
             base.Dispose(disposing);
         }
 
         private bool CursusExists(int id)
         {
-            return repository.GetCursusInstanties().Count(e => e.Id == id) > 0;
+            return _repository.GetCursusInstanties().Count(e => e.Id == id) > 0;
         }
     }
 }

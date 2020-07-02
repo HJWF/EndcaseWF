@@ -109,6 +109,7 @@
     <Compile Include="FileProcessServiceTest.cs" />
     <Compile Include="CursusInstantieValidatorTest.cs" />
     <Compile Include="CursusValidatorTest.cs" />
+    <Compile Include="DateFilteringServiceTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

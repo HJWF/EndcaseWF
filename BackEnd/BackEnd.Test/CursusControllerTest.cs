@@ -36,7 +36,7 @@ namespace BackEnd.Test
             };
             _cursusInstantieRepositoryMock.Setup(x => x.GetCursusInstanties()).Returns(cursusInstantiesQueryable);
 
-            var cursusInstanties = _sut.GetCursussenInstanties();
+            var cursusInstanties = _sut.GetCursussen();
 
             Assert.IsNotNull(cursusInstanties);
             Assert.IsTrue(cursusInstanties.Count() == 5);

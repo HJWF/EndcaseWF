@@ -9,6 +9,7 @@ import { CursusComponent } from './cursus/cursus.component';
 import { CursussenComponent } from './cursussen/cursussen.component';
 import { CursusAddEditComponent } from './cursus-add-edit/cursus-add-edit.component';
 import { CursusService } from './services/cursus.service';
+import { WeekNumberService } from './services/WeekNumber.service';
 
 @NgModule({
   declarations: [
@@ -25,7 +26,8 @@ import { CursusService } from './services/cursus.service';
   ],
   providers: [
     HttpClientModule,
-    CursusService
+    CursusService,
+    WeekNumberService
   ],
   bootstrap: [AppComponent]
 })

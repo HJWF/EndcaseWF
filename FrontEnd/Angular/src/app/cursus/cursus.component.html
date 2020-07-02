@@ -1,29 +1,44 @@
 <h1>Cursussen</h1>
 
-<p *ngIf="!(cursussen | async)"><em>Loading...</em></p>
 <p>
-  <a [routerLink]="['/add']" class="btn btn-primary float-right mb-3">New post</a>
+  <a id="newCursusBtn" [routerLink]="['/add']" class="btn btn-primary float-right mb-3">Nieuwe cursus</a>
 </p>
 
-<table class="table table-sm table-hover" *ngIf="(cursussen | async)?.length>0">
+<h2>Weekoverzicht week {{currentWeekNumber}} - {{currentYear}}</h2>
+<div>
+  <div>
+    <label for="weekNummerInput">Week</label>
+    <input class="form-control mb-3" type="number" id="weekNummerInput" placeholder="Vul weeknummer in" (change)="onChangeWeekNummer($event.target.value)">
+  </div>
+  <div>
+    <label for="yearInput">Jaar</label>
+    <input class="form-control  mb-3" type="number" id="yearInput" placeholder="Vul jaartal in" (change)="onChangeYear($event.target.value)">
+  </div>
+  <div>
+    <a id="updateWeekNumberBtn" class="btn btn-primary float-left mb-3" (click)='updateWeekNumber()' >Zoek voor week en jaar</a>
+  </div>
+  <div class="error">
+    <p>{{errorMessage}}</p>
+</div>
+</div>
+<!-- [routerLink]="['/cursus',  yearWeek] "-->
+<table class="table table-sm table-hover  mb-3" *ngIf="(cursussen)?.length>0">
   <thead>
     <tr>
-      <th>#</th>
-      <th>Duur</th>
+      <th>Start datum</th>
       <th>Titel</th>
-      <th>Code</th>
+      <th>Duur</th>
       <th></th>
       <th></th>
     </tr>
   </thead>
   <tbody>
-    <tr *ngFor="let cursus of (cursussen | async)">
-      <td>{{ cursus.startDatum }}</td>
-      <td>{{ cursus.cursus.duur }}</td>
+    <tr *ngFor="let cursus of (cursussen)">
+      <td>{{ cursus.startDatum | date:'dd/MM/yyyy' }}</td>
       <td>{{ cursus.cursus.titel }}</td>
-      <td>{{ cursus.cursus.code }}</td>
-      <td><a [routerLink]="['/cursus/edit/', cursus.postId]" class="btn btn-primary btn-sm float-right">Edit</a></td>
-      <td><a [routerLink]="" (click)="delete(cursus.postId)" class="btn btn-danger btn-sm float-right">Delete</a></td>
+      <td>{{ cursus.cursus.duur }}</td>
+      <!-- <td><a [routerLink]="['/cursus/edit/', cursus.postId]" class="btn btn-primary btn-sm float-right">Edit</a></td>
+      <td><a [routerLink]="" (click)="delete(cursus.postId)" class="btn btn-danger btn-sm float-right">Delete</a></td> -->
     </tr>
   </tbody>
 </table>

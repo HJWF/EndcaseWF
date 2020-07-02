@@ -38,6 +38,20 @@ export class CursusService {
     ));
   }
 
+  getCursussenForWeek(year: Number, weekNumber: Number): Observable<CursusInstantie[]> 
+  {
+    let yearWeek = `${year}${weekNumber}`;
+    let url = this.myAppUrl + this.myApiUrl + "/" + yearWeek;
+    return this.http.get<CursusInstantie[]>(this.myAppUrl + this.myApiUrl + "/" + yearWeek)
+    .pipe(
+      map((response: any) => response),
+      catchError((err: any, result?) => {
+        console.log(err)
+        return of(result)
+      }
+    ));
+  }
+
   addCursus(fileToUpload: File): Observable<any>
   {
     const data: FormData = new FormData();

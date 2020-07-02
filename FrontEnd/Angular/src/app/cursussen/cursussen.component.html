@@ -4,7 +4,7 @@
 <p>
   <a id="newCursusBtn" [routerLink]="['/add']" class="btn btn-primary float-right mb-3">Nieuwe cursus</a>
 </p>
-
+<h2>Weekoverzicht week {{weekNumber}}</h2>
 <table class="table table-sm table-hover" *ngIf="(cursussen)?.length>0">
   <thead>
     <tr>
@@ -20,8 +20,12 @@
       <td>{{ cursus.startDatum | date:'dd/MM/yyyy' }}</td>
       <td>{{ cursus.cursus.titel }}</td>
       <td>{{ cursus.cursus.duur }}</td>
-      <td><a [routerLink]="['/cursus/edit/', cursus.postId]" class="btn btn-primary btn-sm float-right">Edit</a></td>
-      <td><a [routerLink]="" (click)="delete(cursus.postId)" class="btn btn-danger btn-sm float-right">Delete</a></td>
+      <!-- <td><a [routerLink]="['/cursus/edit/', cursus.postId]" class="btn btn-primary btn-sm float-right">Edit</a></td>
+      <td><a [routerLink]="" (click)="delete(cursus.postId)" class="btn btn-danger btn-sm float-right">Delete</a></td> -->
     </tr>
   </tbody>
 </table>
+
+<ul *ngFor="let value of (weekStartEnd)">
+  <li>{{value | date:'dd/MM/yyyy'}}</li>
+</ul>

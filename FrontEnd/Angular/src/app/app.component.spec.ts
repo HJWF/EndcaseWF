@@ -1,13 +1,9 @@
 import { TestBed, async, ComponentFixture } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { AppComponent } from './app.component';
-import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
-import { HttpClient } from '@angular/common/http';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 
-describe('AppComponent', () => {
-  let httpClient: HttpClient;
-  let httpTestingController: HttpTestingController;
-  
+describe('AppComponent', () => {  
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [
@@ -18,10 +14,6 @@ describe('AppComponent', () => {
         AppComponent
       ],
     }).compileComponents();
-
-    // Inject the http service and test controller for each test
-    httpClient = TestBed.get(HttpClient);
-    httpTestingController = TestBed.get(HttpTestingController);
   }));
 
   it('should create the app', () => {
