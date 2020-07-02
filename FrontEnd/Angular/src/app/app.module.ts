@@ -24,6 +24,7 @@ import { CursusService } from './services/cursus.service';
     ReactiveFormsModule
   ],
   providers: [
+    HttpClientModule,
     CursusService
   ],
   bootstrap: [AppComponent]

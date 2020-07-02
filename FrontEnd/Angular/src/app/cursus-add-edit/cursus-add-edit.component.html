@@ -6,9 +6,9 @@
     <input id="fileExplorer" type="file" class="filestyle" data-classButton="btn btn-secondary" (change)="onChange($event.target.files)">
 </div>
 <br /><br />
-<button type="button" class="btn btn-primary" (click)='Save()'>Uploaden</button>
+<button id="uploadBtn" type="button" class="btn btn-primary" (click)='Save()'>Uploaden</button>
 <br /><br />
-<button type="button" class="btn btn-primary" routerLink="/"> Terug naar overzicht </button>
+<button id="overviewBtn" type="button" class="btn btn-primary" routerLink="/"> Terug naar overzicht </button>
 <br /><br />
 <div class="added">
     <p>{{addedCursusses}}</p>

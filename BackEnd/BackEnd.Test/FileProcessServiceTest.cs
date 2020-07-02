@@ -18,33 +18,30 @@ namespace BackEnd.Test
         }
 
         [TestMethod]
-        public void FilecontentShouldNotAddInvalidDatetime()
+        [ExpectedException(typeof(ArgumentException))]
+        public void FilecontentShouldNotAddInvalidDatetimeAndThrowError()
         {
             string content = "Titel: C# Programmeren\r\nCursuscode: CNETIN\r\nDuur: 5 dagen\r\nStartdatum: 8-10-2018\r\n\r\nTitel: C# Programmeren\r\nCursuscode: CNETIN\r\nDuur: 5 dagen\r\nStartdatum: 15-10-2018\r\n\r\n";
 
             var list = FileProcessService.MapToCursusInstances(content);
-
-            Assert.AreEqual(0, list.CursusInstanties.Count);
         }
 
         [TestMethod]
-        public void FilecontentShouldReturnEmptyListOfCursussen()
+        [ExpectedException(typeof(ArgumentException))]
+        public void FilecontentShouldReturnEmptyListOfCursussenAndThrowError()
         {
             string content = "Titel: C# Programmeren\r\nCursuscode: CNETIN\r\nDuur: 5 dagen\r\nStartdatum: 8/10/2018\r\nTitel: C# Programmeren\r\nCursuscode: CNETIN\r\nDuur: 5 dagen\r\nStartdatum: 15/10/2018";
 
             var list = FileProcessService.MapToCursusInstances(content);
-
-            Assert.AreEqual(0, list.CursusInstanties.Count);
         }
 
         [TestMethod]
-        public void FilecontentShouldHandleEmptyLinesAtTheEndCorrect()
+        [ExpectedException(typeof(ArgumentException))]
+        public void FilecontentShouldHandleEmptyLinesAtTheEndCorrectAndThrowError()
         {
             string content = "Titel: C# Programmeren\r\nCursuscode: CNETIN\r\nDuur: 5 dagen\r\nStartdatum: 8/10/2018\r\nTitel: C# Programmeren\r\nCursuscode: CNETIN\r\nDuur: 5 dagen\r\nStartdatum: 15/10/2018\r\n";
 
             var list = FileProcessService.MapToCursusInstances(content);
-
-            Assert.AreEqual(0, list.CursusInstanties.Count);
         }
 
         [TestMethod]

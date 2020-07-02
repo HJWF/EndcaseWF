@@ -2,7 +2,7 @@
 
 <p *ngIf="!(cursussen)"><em>Loading...</em></p>
 <p>
-  <a [routerLink]="['/add']" class="btn btn-primary float-right mb-3">Nieuwe cursus</a>
+  <a id="newCursusBtn" [routerLink]="['/add']" class="btn btn-primary float-right mb-3">Nieuwe cursus</a>
 </p>
 
 <table class="table table-sm table-hover" *ngIf="(cursussen)?.length>0">

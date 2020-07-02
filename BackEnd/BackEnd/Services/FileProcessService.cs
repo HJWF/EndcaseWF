@@ -22,6 +22,7 @@ namespace BackEnd.Services
 
             List<int> emptyLineIndexes = FindIndexesOfEmptyLines(splitLines);
 
+            // Check if there are any required empty lines, if not throw exception.
             if (emptyLineIndexes.Count == 0 || !splitLines[4].Equals(string.Empty))
             {
                 // Invalid input - op index 4 moet een lege regel zijn
@@ -65,7 +66,7 @@ namespace BackEnd.Services
                         }
                         else
                         {
-                            throw new ArgumentException();
+                            throw new ArgumentException((i+3).ToString());
                         }
                         cursusInstantie.Cursus = cursus;
                         cursusInstanties.Add(cursusInstantie);
