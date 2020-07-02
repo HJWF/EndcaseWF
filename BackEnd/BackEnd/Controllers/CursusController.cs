@@ -137,12 +137,18 @@ namespace BackEnd.Controllers
                     }
                 }
 
-                var requestBody = $"Cursussen toegevoegd: {succesFullAddedCursusCounter} , " +
-                                  $"CursussenInstanties toegevoegd: {succesFullAddedCursusInstantiesCounter} ," +
-                                  $"Cursussen dubbel: {cursusDto.Cursussen.Count - succesFullAddedCursusCounter} ,  " +
+                var requestBody = $"Cursussen toegevoegd: {succesFullAddedCursusCounter}. " +
+                                  $"CursussenInstanties toegevoegd: {succesFullAddedCursusInstantiesCounter}." +
+                                  $"Cursussen dubbel: {cursusDto.Cursussen.Count - succesFullAddedCursusCounter}." +
                                   $"CursussenInstanties dubbel: { cursusDto.CursusInstanties.Count - succesFullAddedCursusInstantiesCounter}";
 
                 return Request.CreateResponse(HttpStatusCode.OK, requestBody, "application/json");
+            }
+            catch (ArgumentException ex)
+            {
+                var requestBody = $"Bestand is niet in correct formaat op regel {ex.Message}." +
+                                  $"Er zijn geen cursus of cursusinstanties toegevoegd.";
+                return Request.CreateResponse(HttpStatusCode.Accepted, requestBody, "application/json");
             }
             catch (Exception ex)
             {

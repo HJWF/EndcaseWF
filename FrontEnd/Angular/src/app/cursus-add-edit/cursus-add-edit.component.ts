@@ -15,6 +15,8 @@ export class CursusAddEditComponent {
   addedCursusInstanties: string;
   doubleCursusses: string;
   doubleCursusInstanties: string;
+  errorReason: string;
+  errorMessage: string;
 
   constructor(private cursusService: CursusService)
   { }
@@ -31,12 +33,19 @@ export class CursusAddEditComponent {
       return;
     }
 
-    this.cursusService.addCursus(this.fileToUpload).subscribe(data => {
-      let response = data.body.toString().split(',');
-      this.addedCursusses = response[0];
-      this.addedCursusInstanties = response[1];
-      this.doubleCursusses = response[2];
-      this.doubleCursusInstanties = response[3];
+    this.cursusService.addCursus(this.fileToUpload).subscribe((data:HttpResponse<object>) => {
+      if (data.status == 200) {
+        let response = data.body.toString().split('.');
+        this.addedCursusses = response[0];
+        this.addedCursusInstanties = response[1];
+        this.doubleCursusses = response[2];
+        this.doubleCursusInstanties = response[3];
+      }
+      if (data.status == 202) {
+        let response = data.body.toString().split('.');
+        this.errorReason = response[0];
+        this.errorMessage = response[1];
+      }
     });
   }
   

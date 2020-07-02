@@ -10,74 +10,43 @@ namespace BackEnd.Services
     {
         public static CursusDto MapToCursusInstances(string fileContent)
         {
-            var cursusDto = new CursusDto
-            {
-                CursusInstanties = new List<CursusInstantie>(),
-                Cursussen = new List<Cursus>()
-            };
+
 
             var lines = fileContent.Split(new[] { Environment.NewLine }, StringSplitOptions.None).ToArray();
 
-            var lastItemEmpty = true;
-            while(lastItemEmpty)
-            {
-                if (lines.Last().Equals(string.Empty))
-                {
-                    Debug.WriteLine(lines.Last());
-                    lines = lines.Take(lines.Length - 1).ToArray();
-                }
-                else
-                {
-                    lastItemEmpty = false;
-                }
+            lines = RemoveLastEmptyLines(lines);
 
-            }
+            CheckForTheCorrectFormat(lines);
 
-            for (int i = 0; i < lines.Length; i += 5)
-            {
-                if (lines[i].Equals(string.Empty) )
-                {
-                    break;
-                }
+            List<string> splitLines = SplitTheValuesAfterTheSemicolon(lines);
 
-                if (!lines[i].StartsWith("Titel", StringComparison.OrdinalIgnoreCase) || !lines[i+1].StartsWith("Cursuscode", StringComparison.OrdinalIgnoreCase) 
-                    || !lines[i+2].StartsWith("Duur", StringComparison.OrdinalIgnoreCase) || !lines[i+3].StartsWith("Startdatum", StringComparison.OrdinalIgnoreCase))
-                {
-                    // stuur juiste regel terug
-                    throw new ArgumentException(i.ToString());
-                }
-            }
-
-            var splitLines = new List<string>();
-
-            foreach (var line in lines)
-            {
-                splitLines.Add( line.Substring(line.IndexOf(": ") + 1));
-            }
-
-            var emptyLineIndexes = new List<int>();
-
-            for (int i = splitLines.Count -1; i > 0; i--)
-            {
-                if (splitLines[i].Equals(string.Empty))
-                {
-                    emptyLineIndexes.Add(i);
-                }
-            }
+            List<int> emptyLineIndexes = FindIndexesOfEmptyLines(splitLines);
 
             if (emptyLineIndexes.Count == 0 || !splitLines[4].Equals(string.Empty))
             {
                 // Invalid input - op index 4 moet een lege regel zijn
-                throw new ArgumentException();
+                throw new ArgumentException(4.ToString());
             }
             else
             {
                 emptyLineIndexes.ForEach(x => splitLines.RemoveAt(x));
             }
 
+            CursusDto cursusDto = CreateCursussesAndCursusInstantiesAndAssignThemToACursusDto(splitLines);
+
+            return cursusDto;
+        }
+
+        private static CursusDto CreateCursussesAndCursusInstantiesAndAssignThemToACursusDto(List<string> splitLines)
+        {
             var cursusInstanties = new List<CursusInstantie>();
             var cursusses = new List<Cursus>();
-            
+            var cursusDto = new CursusDto
+            {
+                CursusInstanties = cursusInstanties,
+                Cursussen = cursusses
+            };
+
             for (int i = 0; i < splitLines.Count; i += 4)
             {
                 var set = splitLines.Skip(i).Take(4).ToList();
@@ -107,8 +76,81 @@ namespace BackEnd.Services
 
             cursusDto.Cursussen = cursusses;
             cursusDto.CursusInstanties = cursusInstanties;
-
             return cursusDto;
+        }
+
+        private static List<int> FindIndexesOfEmptyLines(List<string> splitLines)
+        {
+            var emptyLineIndexes = new List<int>();
+
+            for (int i = splitLines.Count - 1; i > 0; i--)
+            {
+                if (splitLines[i].Equals(string.Empty))
+                {
+                    emptyLineIndexes.Add(i);
+                }
+            }
+
+            return emptyLineIndexes;
+        }
+
+        private static List<string> SplitTheValuesAfterTheSemicolon(string[] lines)
+        {
+            var splitLines = new List<string>();
+
+            foreach (var line in lines)
+            {
+                splitLines.Add(line.Substring(line.IndexOf(": ") + 1));
+            }
+
+            return splitLines;
+        }
+
+        private static void CheckForTheCorrectFormat(string[] lines)
+        {
+            for (int i = 0; i < lines.Length; i += 5)
+            {
+                if (lines[i].Equals(string.Empty))
+                {
+                    break;
+                }
+
+                if (!lines[i].StartsWith("Titel", StringComparison.OrdinalIgnoreCase))
+                {
+                    throw new ArgumentException(i.ToString());
+                }
+                if (!lines[i + 1].StartsWith("Cursuscode", StringComparison.OrdinalIgnoreCase))
+                {
+                    throw new ArgumentException((i + 1).ToString());
+                }
+                if (!lines[i + 2].StartsWith("Duur", StringComparison.OrdinalIgnoreCase))
+                {
+                    throw new ArgumentException((i + 2).ToString());
+                }
+                if (!lines[i + 3].StartsWith("Startdatum", StringComparison.OrdinalIgnoreCase))
+                {
+                    throw new ArgumentException((i + 3).ToString());
+                }
+            }
+        }
+
+        private static string[] RemoveLastEmptyLines(string[] lines)
+        {
+            var lastItemEmpty = true;
+            while (lastItemEmpty)
+            {
+                if (lines.Last().Equals(string.Empty))
+                {
+                    Debug.WriteLine(lines.Last());
+                    lines = lines.Take(lines.Length - 1).ToArray();
+                }
+                else
+                {
+                    lastItemEmpty = false;
+                }
+            }
+
+            return lines;
         }
     }
 }
