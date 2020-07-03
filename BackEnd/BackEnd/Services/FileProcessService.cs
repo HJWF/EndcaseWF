@@ -10,8 +10,6 @@ namespace BackEnd.Services
     {
         public static CursusDto MapToCursusInstances(string fileContent)
         {
-
-
             var lines = fileContent.Split(new[] { Environment.NewLine }, StringSplitOptions.None).ToArray();
 
             lines = RemoveLastEmptyLines(lines);
@@ -25,7 +23,7 @@ namespace BackEnd.Services
             // Check if there are any required empty lines, if not throw exception.
             if (emptyLineIndexes.Count == 0 || !splitLines[4].Equals(string.Empty))
             {
-                // Invalid input - op index 4 moet een lege regel zijn
+                // Invalid input - op regel met index 4 moet een lege regel zijn
                 throw new ArgumentException(4.ToString());
             }
             else

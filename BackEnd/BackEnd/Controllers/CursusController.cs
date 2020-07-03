@@ -1,15 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Data.Entity.Infrastructure;
-using System.Diagnostics;
 using System.IO;
-using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web;
 using System.Web.Http;
 using System.Web.Http.Cors;
-using System.Web.Http.Description;
 using BackEnd.DAL;
 using BackEnd.Data;
 using BackEnd.Models;
@@ -17,7 +13,7 @@ using BackEnd.Services;
 
 namespace BackEnd.Controllers
 {
-    [EnableCors(origins: "*", headers: "*", methods: "*")]
+    [EnableCors(origins: "http://localhost:4200", headers: "*", methods: "GET, POST")]
     public class CursusController : ApiController
     {
         private readonly ICursusRepository _repository;
@@ -49,42 +45,6 @@ namespace BackEnd.Controllers
             var cursussenForSpecificWeek = DateFilteringService.FilterOnWeek(cursussen, id);
 
             return cursussenForSpecificWeek;
-        }
-
-        // PUT: api/Cursus/5
-        [ResponseType(typeof(void))]
-        public IHttpActionResult PutCursus(int id, CursusInstantie cursusInstantie)
-        {
-            // NOT CORRECTLY IMPLEMENTED YET
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
-
-            if (id != cursusInstantie.Id)
-            {
-                return BadRequest();
-            }
-
-            _repository.UpdateCursusInstantie(cursusInstantie);
-
-            try
-            {
-                _repository.Save();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!CursusExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
-
-            return StatusCode(HttpStatusCode.NoContent);
         }
 
         // POST: api/Cursus
@@ -153,23 +113,6 @@ namespace BackEnd.Controllers
             }
         }
 
-        // DELETE: api/Cursus/5
-        [ResponseType(typeof(Cursus))]
-        public IHttpActionResult DeleteCursus(int id)
-        {
-            // NOT CORRECTLY IMPLEMENTED YET
-            CursusInstantie cursusInstantie = _repository.GetCursusInstantieById(id);
-            if (cursusInstantie == null)
-            {
-                return NotFound();
-            }
-
-            _repository.DeleteCursusInstantie(id);
-            _repository.Save();
-
-            return Ok(cursusInstantie);
-        }
-
         protected override void Dispose(bool disposing)
         {
             if (disposing)
@@ -177,11 +120,6 @@ namespace BackEnd.Controllers
                 _repository.Dispose();
             }
             base.Dispose(disposing);
-        }
-
-        private bool CursusExists(int id)
-        {
-            return _repository.GetCursusInstanties().Count(e => e.Id == id) > 0;
         }
     }
 }

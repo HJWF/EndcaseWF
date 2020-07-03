@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data.Entity;
-using System.Linq;
 using BackEnd.Data;
 using BackEnd.Models;
 
@@ -73,26 +72,6 @@ namespace BackEnd.DAL
         {
             Dispose(true);
             GC.SuppressFinalize(this);
-        }
-
-        public void DeleteCursusInstantie(int id)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void DeleteCursus(int id)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void UpdateCursusInstantie(CursusInstantie cursusInstantie)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void UpdateCursus(Cursus cursus)
-        {
-            throw new NotImplementedException();
         }
     }
 }

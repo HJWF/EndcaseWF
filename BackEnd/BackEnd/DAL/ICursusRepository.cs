@@ -18,14 +18,6 @@ namespace BackEnd.DAL
 
         void AddCursus(Cursus cursus);
 
-        void DeleteCursusInstantie(int id);
-
-        void DeleteCursus(int id);
-
-        void UpdateCursusInstantie(CursusInstantie cursusInstantie);
-
-        void UpdateCursus(Cursus cursus);
-
         void Save();
     }
 }

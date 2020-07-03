@@ -8,16 +8,16 @@ namespace BackEnd.Services
 {
     public class CursusValidator
     {
-        private ICursusRepository repository;
+        private ICursusRepository _repository;
 
         public CursusValidator()
         {
-            repository = new CursusRepository(new ApplicationDbContext());
+            _repository = new CursusRepository(new ApplicationDbContext());
         }
 
         public CursusValidator(ICursusRepository repository)
         {
-            this.repository = repository;
+            _repository = repository;
         }
 
         public bool DoesCursusExist(List<Cursus> cursusses)
@@ -36,7 +36,7 @@ namespace BackEnd.Services
 
         public bool DoesCursusNotExist(Cursus cursus)
         {
-            var existingCursusses = repository.GetCursussen();
+            var existingCursusses = _repository.GetCursussen();
 
             if (existingCursusses == null)
             {
@@ -49,20 +49,6 @@ namespace BackEnd.Services
             }
 
             return true;
-        }
-
-        public bool DoesCursusHaveFilledAttributes(List<Cursus> cursusses)
-        {
-            foreach (var cursus in cursusses)
-            {
-                bool alreadyExists = DoesCursusHaveFilledAttributes(cursus);
-                if (alreadyExists == true)
-                {
-                    return true;
-                }
-            }
-
-            return false;
         }
 
         public bool DoesCursusHaveFilledAttributes(Cursus cursus)

@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
-using System.Web;
 using BackEnd.Models;
 
 namespace BackEnd.Services
@@ -56,6 +55,5 @@ namespace BackEnd.Services
 
             return new List<DateTime> { firstDay, lastDay };
         }
-
     }
 }

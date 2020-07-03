@@ -5,7 +5,7 @@ namespace BackEnd.Test.Builders
 {
     public class CursusBuilder
     {
-        private Cursus _cursus;
+        private readonly Cursus _cursus;
         private readonly Random _random = new Random();
 
         private CursusBuilder()

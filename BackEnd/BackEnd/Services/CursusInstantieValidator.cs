@@ -9,16 +9,16 @@ namespace BackEnd.Services
 {
     public class CursusInstantieValidator
     {
-        private ICursusRepository repository;
+        private ICursusRepository _repository;
 
         public CursusInstantieValidator()
         {
-            repository = new CursusRepository(new ApplicationDbContext());
+            _repository = new CursusRepository(new ApplicationDbContext());
         }
 
         public CursusInstantieValidator(ICursusRepository repository)
         {
-            this.repository = repository;
+            _repository = repository;
         }
 
         public bool DoesCursusInstantiesExist(List<CursusInstantie> cursusInstanties)
@@ -37,7 +37,7 @@ namespace BackEnd.Services
 
         public bool DoesNotCursusInstantieExist(CursusInstantie cursusInstantie)
         {
-            var existingCursusInstanties = repository.GetCursusInstanties();
+            var existingCursusInstanties = _repository.GetCursusInstanties();
 
             if (existingCursusInstanties == null)
             {

@@ -23,7 +23,7 @@ namespace BackEnd.Test
         {
             string content = "Titel: C# Programmeren\r\nCursuscode: CNETIN\r\nDuur: 5 dagen\r\nStartdatum: 8-10-2018\r\n\r\nTitel: C# Programmeren\r\nCursuscode: CNETIN\r\nDuur: 5 dagen\r\nStartdatum: 15-10-2018\r\n\r\n";
 
-            var list = FileProcessService.MapToCursusInstances(content);
+            FileProcessService.MapToCursusInstances(content);
         }
 
         [TestMethod]
@@ -32,7 +32,7 @@ namespace BackEnd.Test
         {
             string content = "Titel: C# Programmeren\r\nCursuscode: CNETIN\r\nDuur: 5 dagen\r\nStartdatum: 8/10/2018\r\nTitel: C# Programmeren\r\nCursuscode: CNETIN\r\nDuur: 5 dagen\r\nStartdatum: 15/10/2018";
 
-            var list = FileProcessService.MapToCursusInstances(content);
+            FileProcessService.MapToCursusInstances(content);
         }
 
         [TestMethod]
@@ -41,7 +41,7 @@ namespace BackEnd.Test
         {
             string content = "Titel: C# Programmeren\r\nCursuscode: CNETIN\r\nDuur: 5 dagen\r\nStartdatum: 8/10/2018\r\nTitel: C# Programmeren\r\nCursuscode: CNETIN\r\nDuur: 5 dagen\r\nStartdatum: 15/10/2018\r\n";
 
-            var list = FileProcessService.MapToCursusInstances(content);
+            FileProcessService.MapToCursusInstances(content);
         }
 
         [TestMethod]
@@ -50,7 +50,7 @@ namespace BackEnd.Test
         {
             string content = "Titel: C# Programmeren\r\nCursuscode: CNETIN\r\nStartdatum: 8/10/2018\r\n\r\nTitel: C# Programmeren\r\nCursuscode: CNETIN\r\nDuur: 5 dagen\r\nStartdatum: 15/10/2018\r\n\r\n";
 
-            var list = FileProcessService.MapToCursusInstances(content);
+            FileProcessService.MapToCursusInstances(content);
         }
     }
 }
