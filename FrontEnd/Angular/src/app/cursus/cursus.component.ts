@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Observable, Subscription } from 'rxjs';
-import { Cursus } from '../models/cursus';
+import { Subscription } from 'rxjs';
 import { CursusService } from '../services/cursus.service';
 import { CursusInstantie } from '../models/CursusInstantie';
 import { WeekNumberService } from '../services/WeekNumber.service';
@@ -30,14 +29,13 @@ export class CursusComponent implements OnInit {
 
   ngOnInit() 
   {
-    let sub = this.route.params.subscribe(params => {
+    this.route.params.subscribe(params => {
       this.id = +params['id'];
       
     })
     this.currentWeekNumber = Number.parseInt(this.id.toString().substring(4));
     this.currentYear = Number.parseInt(this.id.toString().substring(0, 4));
     this.yearWeek = Number.parseInt( '' + this.currentYear + this.currentWeekNumber);
-    console.log(`w: ${this.currentWeekNumber} y: ${this.currentYear} yw: ${this.yearWeek}`)
 
     this.loadCursussenForWeek(this.currentYear, this.currentWeekNumber);
 
@@ -46,11 +44,9 @@ export class CursusComponent implements OnInit {
   
   loadCursussenForWeek(year: number, weekNumber: number)
   {
-    console.log('request');
     this.subscription = this.cursusService.getCursussenForWeek(year, weekNumber).pipe( 
         map(result => {
           result.sort((a,b) => (a.startDatum > b.startDatum) ? 1 : ((b.startDatum > a.startDatum) ? -1 : 0));
-          console.log(result)
           return result;
         })
       )

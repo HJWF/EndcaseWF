@@ -32,10 +32,12 @@ export class CursusAddEditComponent {
     this.errorMessage = "";
   }
 
-  Save()
+  Upload()
   {
+    this.errorMessage = "";
     if(this.fileToUpload == null)
     {
+      this.errorMessage = "Geen bestand geselecteerd";
       return;
     }
 
