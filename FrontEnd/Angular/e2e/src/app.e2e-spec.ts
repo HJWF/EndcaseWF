@@ -1,5 +1,5 @@
 import { AppPage } from './app.po';
-import { browser, logging } from 'protractor';
+import { browser, logging, element } from 'protractor';
 
 describe('workspace-project App', () => {
   let page: AppPage;
@@ -8,9 +8,12 @@ describe('workspace-project App', () => {
     page = new AppPage();
   });
 
-  it('should display welcome message', () => {
-    page.navigateTo();
-    expect(page.getTitleText()).toEqual('FrontEnd app is running!');
+  it('should display error message when no file is selected', async () => {
+    page.navigateToAdd();
+    await page.getUploadButtonClick()
+    let message = await page.getErrorMessageParagraphText();
+    expect(message).toEqual('Geen bestand geselecteerd');
+    expect(browser.getCurrentUrl()).toEqual('http://localhost:4200/add');
   });
 
   afterEach(async () => {

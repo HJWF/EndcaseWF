@@ -5,7 +5,15 @@ export class AppPage {
     return browser.get(browser.baseUrl) as Promise<unknown>;
   }
 
-  getTitleText(): Promise<string> {
-    return element(by.css('app-root .content span')).getText() as Promise<string>;
+  navigateToAdd(): Promise<unknown> {
+    return browser.get(browser.baseUrl + "/add") as Promise<unknown>;
   }
+
+  getUploadButtonClick(){
+    return element(by.id('uploadBtn')).click()
+  }
+
+  getErrorMessageParagraphText(){
+    return element(by.id("errorMessage")).getText()
+  }  
 }
