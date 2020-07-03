@@ -4,3 +4,11 @@
 .btn{
     color: white;
 }
+#buttonDiv-Get{
+    width: 700px;
+}
+.input{
+    width: 80px;
+    height: 40px;
+    text-align: center;
+}

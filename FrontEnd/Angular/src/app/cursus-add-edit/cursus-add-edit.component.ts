@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { HttpClient, HttpResponse } from '@angular/common/http';
 import { CursusService } from '../services/cursus.service';
+import { FormsModule, ReactiveFormsModule }   from '@angular/forms';
 
 @Component({
   selector: 'app-cursus-add-edit',

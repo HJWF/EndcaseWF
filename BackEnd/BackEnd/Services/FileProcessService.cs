@@ -20,13 +20,7 @@ namespace BackEnd.Services
 
             List<int> emptyLineIndexes = FindIndexesOfEmptyLines(splitLines);
 
-            // Check if there are any required empty lines, if not throw exception.
-            if (emptyLineIndexes.Count == 0 || !splitLines[4].Equals(string.Empty))
-            {
-                // Invalid input - op regel met index 4 moet een lege regel zijn
-                throw new ArgumentException(4.ToString());
-            }
-            else
+            if (emptyLineIndexes.Count != 0)
             {
                 emptyLineIndexes.ForEach(x => splitLines.RemoveAt(x));
             }

@@ -4,23 +4,30 @@
   <a id="newCursusBtn" [routerLink]="['/add']" class="btn btn-primary float-right mb-3">Nieuwe cursus</a>
 </p>
 
-<h2>Weekoverzicht week {{currentWeekNumber}} - {{currentYear}}</h2>
+<!-- <h2>Weekoverzicht week {{currentWeekNumber}} - {{currentYear}}</h2> -->
+<div id="buttonDiv-Get" class="d-flex justify-content-between">
+  <h2>Weekoverzicht week</h2>
+  <input class="input" id="weekInput" type="number" placeholder="Week" (change)="onChangeWeekNummer()">
+  <input class="input" id="yearInput" type="number" placeholder="Jaar" (change)="onChangeYear()">
+  <a id="updateWeekNumberBtn" class="btn btn-primary  mb-3" (click)='updateWeekNumber()' >Zoek week en jaar</a>
+</div>
+
 <div>
-  <div>
+  <!-- <div>
     <label for="weekNummerInput">Week</label>
     <input class="form-control mb-3" type="number" id="weekNummerInput" placeholder="Vul weeknummer in" (change)="onChangeWeekNummer($event.target.value)">
   </div>
   <div>
     <label for="yearInput">Jaar</label>
     <input class="form-control  mb-3" type="number" id="yearInput" placeholder="Vul jaartal in" (change)="onChangeYear($event.target.value)">
-  </div>
+  </div> -->
   <div class="d-flex justify-content-between">
     <div>
       <a id="previousWeekBtn" class="btn btn-primary mb-3" (click)='previousWeek()'>Vorige week</a>
     </div>
-    <div>
+    <!-- <div>
       <a id="updateWeekNumberBtn" class="btn btn-primary  mb-3" (click)='updateWeekNumber()' >Zoek week en jaar</a>
-    </div>
+    </div> -->
     <div>
       <a id="nextWeekBtn" class="btn btn-primary mb-3" (click)='nextWeek()'>Volgende week</a>
     </div>
@@ -46,3 +53,6 @@
     </tr>
   </tbody>
 </table>
+<div *ngIf="(cursussen)?.length==0">
+  <p>Geen cursussen deze week</p>
+</div>

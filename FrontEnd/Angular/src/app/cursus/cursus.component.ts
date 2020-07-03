@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { CursusService } from '../services/cursus.service';
 import { CursusInstantie } from '../models/CursusInstantie';
-import { WeekNumberService } from '../services/WeekNumber.service';
+import { WeekNumberService, weeksInYear } from '../services/WeekNumber.service';
 import { map } from 'rxjs/operators';
 import { ActivatedRoute, Router } from '@angular/router';
 
@@ -37,6 +37,9 @@ export class CursusComponent implements OnInit {
     this.currentYear = Number.parseInt(this.id.toString().substring(0, 4));
     this.yearWeek = Number.parseInt( '' + this.currentYear + this.currentWeekNumber);
 
+    (<HTMLInputElement>document.getElementById("weekInput")).value = this.currentWeekNumber.toString();
+    (<HTMLInputElement>document.getElementById("yearInput")).value = this.currentYear.toString();
+
     this.loadCursussenForWeek(this.currentYear, this.currentWeekNumber);
 
     this.router.navigate(['/cursus', this.yearWeek]);
@@ -54,6 +57,9 @@ export class CursusComponent implements OnInit {
   }
 
   updateWeekNumber(){
+    this.onChangeWeekNummer();
+    this.onChangeYear();
+
     this.errorMessage = '';
 
     if(this.validWeekNumber == false)
@@ -82,9 +88,13 @@ export class CursusComponent implements OnInit {
     }
   }
 
-  public onChangeWeekNummer(input: number){
+  public onChangeWeekNummer(){
+
+    let input = Number.parseInt((<HTMLInputElement>document.getElementById("weekInput")).value);
+
     this.errorMessage = '';
-    if(input.toString().length > 2 || input > 53 || input < 1)
+    let weeksThisyear = weeksInYear(this.currentYear);
+    if(input.toString().length > 2 || input > weeksThisyear || input < 1)
     {
       this.errorMessage += ' Geen geldig weeknummer';
       this.validWeekNumber = false;
@@ -95,7 +105,10 @@ export class CursusComponent implements OnInit {
     this.weekNumber = input;
   }
 
-  public onChangeYear(input: number ){
+  public onChangeYear()
+  {
+    let input = Number.parseInt((<HTMLInputElement>document.getElementById("yearInput")).value);
+
     this.errorMessage = '';
     if(input.toString().length != 4 )
     {
@@ -117,8 +130,9 @@ export class CursusComponent implements OnInit {
   public nextWeek()
   {
     this.subscription.unsubscribe();
-
+    
     this.currentWeekNumber ++;
+    (<HTMLInputElement>document.getElementById("weekInput")).value = this.currentWeekNumber.toString();
     this.yearWeek = Number.parseInt( '' + this.currentYear + this.currentWeekNumber);
 
     this.loadCursussenForWeek(this.currentYear, this.currentWeekNumber);
@@ -131,6 +145,7 @@ export class CursusComponent implements OnInit {
     this.subscription.unsubscribe();
 
     this.currentWeekNumber --;
+    (<HTMLInputElement>document.getElementById("weekInput")).value = this.currentWeekNumber.toString();
     this.yearWeek = Number.parseInt( '' + this.currentYear + this.currentWeekNumber);
 
     this.loadCursussenForWeek(this.currentYear, this.currentWeekNumber);

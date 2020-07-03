@@ -11,24 +11,28 @@ export class WeekNumberService{
         // Adjust to Thursday in week 1 and count number of weeks from date to week1.
         return 1 + Math.round(((date.getTime() - week1.getTime()) / 86400000 - 3 + (week1.getDay() + 6) % 7) / 7);
     };
-
-    getDateRangeOfWeek(weekNo, year) : Date[]{
-        var d1, numOfdaysPastSinceLastMonday, rangeIsFrom, rangeIsTo;
-        d1 = new Date('' + year + '');
-        numOfdaysPastSinceLastMonday = d1.getDay() - 1;
-        d1.setDate(d1.getDate() - numOfdaysPastSinceLastMonday);
-        d1.setDate(d1.getDate() + (7 * (weekNo - this.getWeek(d1))));
-        rangeIsFrom = (d1.getMonth() + 1) + "-" + d1.getDate() + "-" + d1.getFullYear();
-        d1.setDate(d1.getDate() + 6);
-        rangeIsTo = (d1.getMonth() + 1) + "-" + d1.getDate() + "-" + d1.getFullYear() ;
-        return [rangeIsFrom, rangeIsTo];
-    };
 }
 
-export function getCurrentYear(){
+export function getCurrentYearWeek(){
     let weekNumberService = new WeekNumberService();
     let date: Date = new Date();
     let currentWeekNumber = weekNumberService.getWeek(date);
     let currentYear = date.getFullYear();
     return '' + currentYear + currentWeekNumber
 }
+
+export function weeksInYear(year) {
+    let weekNumberService = new WeekNumberService();
+    let month = 11,
+      day = 31,
+      week;
+  
+    // Find week that 31 Dec is in. If is first week, reduce date until
+    // get previous week.
+    do {
+      let d = new Date(year, month, day--);
+      week = weekNumberService.getWeek(d)[1];
+    } while (week == 1);
+  
+    return week;
+  }

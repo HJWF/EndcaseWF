@@ -18,6 +18,19 @@ namespace BackEnd.Test
         }
 
         [TestMethod]
+        public void FilecontentShouldReturn1()
+        {
+            string content = "Titel: Stuff\r\nCursuscode: CNETIN\r\nDuur: 3 dagen\r\nStartdatum: 03/07/2020\r\n\r\n";
+
+            var list = FileProcessService.MapToCursusInstances(content);
+
+            Assert.AreEqual(1, list.CursusInstanties.Count);
+        }
+
+
+        
+
+        [TestMethod]
         [ExpectedException(typeof(ArgumentException))]
         public void FilecontentShouldNotAddInvalidDatetimeAndThrowError()
         {
