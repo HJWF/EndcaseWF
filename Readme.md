@@ -13,9 +13,12 @@ Open de solution file in de map BackEnd in Visual studio. Wanneer het propject g
 
 Open de package package manager console voor het command <code> Update-Database</code> uit. Hierdoor wordt de Database geseed.
 
+Voer daarna het volgende command uit <code> Update-Package Microsoft.CodeDom.Providers.DotNetCompilerPlatform -r</code>. 
+
+
 Ga daarna in het bovenste menu <i>Build ->  Clean Solution</i>, wanneer de clean voltooid is klik dan op <i>Build ->  Rebuild Solution</i> (de clean zit ook al bij de Rebuild inbegrepen, maar een dubbele clean is nooit verkeerd).
 
-Klik daarna op de knop bovenin <i>IIS Express (browsernaam)</i> (bij voorkeur Google Chrome gebruiken). Er kan dan een popup komen met <i>Would you like to trust the IIS Express SSL certificate?</i> druk op ja en bij het volgende scherm klik weer op ja om het certificaat te installeren.
+Klik daarna op de knop bovenin <i>IIS Express (browsernaam)</i> (bij voorkeur Google Chrome gebruiken) of <i>Debug ->  Start Debuggen (F5)</i>. Er kan dan een popup komen met <i>Would you like to trust the IIS Express SSL certificate?</i> druk op ja en bij het volgende scherm klik weer op ja om het certificaat te installeren.
 
 De browser opent op <i>http://localhost:8080/</i>. De error die in beeld komt hoort zo omdat er er geen UI is voor de Web API. Om te testen of de database gevuld is met data kun je gaan naar <i>http://localhost:8080/api/cursus</i>. 
 
